@@ -1,0 +1,10 @@
+{
+  "name": "Custom new tab",
+  "description": "Custom new tab extension",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["bookmarks"],
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  }
+}
