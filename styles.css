@@ -1,9 +1,9 @@
 @keyframes zoom {
   from {
-    background-size: 100% auto;
+    transform: scale(95%);
   }
   to {
-    background-size: 130% auto;
+    transform: scale(115%);
   }
 }
 html {
@@ -19,17 +19,27 @@ body {
 * {
   box-sizing: border-box;
 }
-/* bg size: 4992px 3648px*/
 body {
   display: grid;
-  grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   gap: 1rem;
-  padding: 8rem;
-  background-color: rgb(31 23 106);
-  background-image: url('./bg.jpg');
+  padding: 8rem 10rem;
+  background-color: rgb(10 18 21);
+  transition-duration: 300ms;
+  overflow: hidden;
+}
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-image: url('./spacebg.jpg');
   background-position: center;
-  background-size: 150% auto;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
   animation: zoom infinite 40s alternate linear;
 }
 .block {
@@ -41,13 +51,13 @@ input {
   background-color: white;
   transition-duration: 300ms;
   border: none;
-  border-radius: 3rem;
+  border-radius: 2.75rem;
   color: rgb(60, 64, 67);
   font-family: inherit;
-  font-size: 1.5rem;
+  font-size: 1rem;
   outline: none;
-  padding-inline-end: 3rem;
-  padding-inline-start: 3rem;
+  padding-inline-end: 2.75rem;
+  padding-inline-start: 2.75rem;
   position: relative;
   width: 100%;
   height: 100%;
@@ -55,32 +65,33 @@ input {
 .search-input {
   position: relative;
   width: 100%;
-  height: 4rem;
+  height: 3.5rem;
 }
 .search-icon {
   position: absolute;
   top: 50%;
-  left: 1rem;
-  margin-top: -1rem;
-  height: 2rem;
-  width: 2rem;
+  left: 0.75rem;
+  margin-top: -0.75rem;
+  height: 1.5rem;
+  width: 1.5rem;
   fill: rgb(60, 64, 67);
 }
 #favorites {
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
+  margin-left: -0.5rem;
 }
 .favorite {
-  width: 8rem;
-  height: 8rem;
+  width: 7rem;
+  height: 7rem;
   padding: 1rem;
   transition-duration: 300ms;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.25rem;
+  font-size: 1rem;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: white;
@@ -92,7 +103,7 @@ input {
   border: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
 }
-.favorite P {
+.favorite p {
   margin: 0;
 }
 .favorite:hover {
@@ -108,6 +119,8 @@ input {
 /* News block */
 .news-container {
   position: relative;
+  grid-row-end: span 2;
+  margin-top: 2.5rem;
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
   border-top-right-radius: 3.5em;
@@ -134,13 +147,13 @@ input {
 .news-container a {
   margin: 0.5rem 0;
   padding-bottom: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   color: white;
 }
 .news-container img {
-  height: 8rem;
+  height: 5rem;
   margin-right: 1rem;
   width: auto;
 }
@@ -165,6 +178,7 @@ input {
   align-items: center;
   font-size: 8rem;
   color: white;
+  transition-duration: 300ms;
 }
 .column {
   display: flex;
@@ -176,4 +190,58 @@ input {
 }
 .description {
   font-size: 2rem;
+}
+
+@media (max-width: 2000px) {
+  body {
+    padding: 5rem;
+  }
+  .favorite {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 1600px) {
+  html {
+    font-size: 14px;
+  }
+  body {
+    padding: 5rem;
+  }
+  .favorite {
+    padding: 0.5rem;
+  }
+  .info {
+    font-size: 7rem;
+  }
+}
+
+@media (max-width: 1280px) {
+  html {
+    font-size: 12px;
+  }
+  body {
+    padding: 3rem;
+  }
+  .favorite {
+    padding: 0.25rem;
+  }
+  .info {
+    font-size: 6rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  html {
+    font-size: 10px;
+  }
+  body {
+    padding: 2rem;
+  }
+  .favorite {
+    padding: 0.2rem;
+  }
+  .info {
+    font-size: 4rem;
+  }
 }

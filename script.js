@@ -1,27 +1,37 @@
 // Date & time
-const updateTimeInterval;
-window.onload = () => {
-  const timeBlock = document.getElementById('time');
-  const dateBlock = document.getElementById('date');
+let updateTimeInterval;
+const timeBlock = document.getElementById('time');
+const dateBlock = document.getElementById('date');
 
-  updateTimeInterval = setInterval(() => {
-    const date = new Date();
-    const minutes =
-      date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-  
-    timeBlock.innerHTML = `${date.getHours()}:${minutes}`;
-    dateBlock.innerHTML = `${date.getDate()}.${
-      date.getMonth() + 1
-    }.${date.getFullYear()}`;
-  }, 1000);
+const updateTime = () => {
+  const date = new Date();
+  const hour = date.getHours();
+  const hours = hour < 10 ? '0' + hour : hour;
+  const min = date.getMinutes();
+  const minutes = min < 10 ? '0' + min : min;
 
-  
+  timeBlock.innerHTML = `${hours}:${minutes}`;
+  dateBlock.innerHTML = `${date.getDate()}.${
+    date.getMonth() + 1
+  }.${date.getFullYear()}`;
 };
+
+const startInterval = () => {
+  updateTime();
+  updateTimeInterval = setInterval(() => updateTime(), 2000);
+};
+
+document.addEventListener('visibilitychange', function (e) {
+  if (document.hidden) clearInterval(updateTimeInterval);
+  if (!document.hidden) startInterval();
+});
 
 // Get bookmarks
 chrome.bookmarks.getSubTree('1').then((bookmarks) => {
   const parent = document.getElementById('favorites');
   bookmarks[0].children.forEach((bookmark) => {
+    const linkElem = document.createElement('a');
+    linkElem.href = bookmark.url;
     const newElem = document.createElement('div');
     newElem.classList.add('favorite');
 
@@ -35,7 +45,8 @@ chrome.bookmarks.getSubTree('1').then((bookmarks) => {
     newElem.appendChild(favicon);
     newElem.appendChild(text);
 
-    parent.appendChild(newElem);
+    linkElem.appendChild(newElem);
+    parent.appendChild(linkElem);
   });
 });
 
@@ -50,7 +61,6 @@ fetch('https://www.is.fi/rss/tuoreimmat.xml')
     const image = document.createElement('img');
     image.src = logoUrl;
     image.alt = '';
-    console.log(data.querySelector('image')?.querySelector('url').innerHTML);
     document.getElementById('news-outlet').appendChild(image);
 
     const items = data.querySelectorAll('item');
@@ -82,10 +92,9 @@ fetch(
   .then((data) => {
     const temperature = document.getElementById('temperature');
     temperature.innerHTML = `${Number(data.main.temp - 273.15).toFixed()}°C`;
-    console.log(data.main.temp);
-    console.log(typeof data.main.temp);
     const weatherDesc = document.getElementById('weather-description');
     weatherDesc.innerHTML = data.weather[0].description;
   });
 
-// ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+// Start background update service
+startInterval();
