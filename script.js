@@ -96,5 +96,13 @@ fetch(
     weatherDesc.innerHTML = data.weather[0].description;
   });
 
+// TODO: Scrape random fact from Google
+/*fetch('https://www.google.com/search?q=i%27m+feeling+curious')
+  .then((response) => response.text())
+  .then((str) => new window.DOMParser().parseFromString(str, 'text/html'))
+  .then((data) => {
+    console.log(data)
+  });*/
+
 // Start background update service
 startInterval();

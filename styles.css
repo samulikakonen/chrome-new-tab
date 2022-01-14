@@ -106,7 +106,8 @@ input {
 .favorite p {
   margin: 0;
 }
-.favorite:hover {
+.favorite:hover,
+.google-services a:hover {
   background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
@@ -190,6 +191,31 @@ input {
 }
 .description {
   font-size: 2rem;
+}
+
+/* Google services */
+.google-services {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  display: flex;
+}
+.google-services a {
+  display: block;
+  transition-duration: 300ms;
+  height: 4rem;
+  width: 4rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.google-services a img {
+  width: 2rem;
+  height: 2rem;
 }
 
 @media (max-width: 2000px) {
