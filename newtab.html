@@ -12,11 +12,15 @@
   <body>
     <div class="background"></div>
     <main>
-      <div class="block news-container">
-        <div id="news"></div>
+      <div class="column" style="flex: 1; gap: 1.25rem">
+        <h1>News</h1>
+        <div class="news-container" style="flex: 1">
+          <div id="news"></div>
+        </div>
       </div>
-      <div class="column">
-        <div class="block info">
+      <div class="column" style="flex: 1; gap: 1.25rem">
+        <h1>Time & Weather</h1>
+        <div class="info">
           <div class="column">
             <p id="time"></p>
             <p id="date" class="description"></p>
@@ -26,23 +30,26 @@
             <p id="weather-description" class="description"></p>
           </div>
         </div>
-        <div class="block">
-          <div id="favorites"></div>
+        <h1 style="align-self: flex-start">Google</h1>
+        <div class="google-services">
+          <a href="https://mail.google.com/mail/u/0/">
+            <img src="./gmail.png" alt="Gmail" />
+          </a>
+          <a href="https://drive.google.com/drive/u/0/">
+            <img src="./drive.png" alt="Google Drive" />
+          </a>
+          <a href="https://calendar.google.com/calendar/u/0/">
+            <img src="./calendar.png" alt="Google Calendar" />
+          </a>
+          <a href="https://www.google.fi/maps/">
+            <img src="./maps.svg" alt="Google Maps" />
+          </a>
+          <a href="https://photos.google.com/">
+            <img src="./google-photos.png" alt="Google Photos" />
+          </a>
         </div>
-      </div>
-      <div class="google-services">
-        <a href="https://mail.google.com/mail/u/0/">
-          <img src="./gmail.png" alt="Gmail" />
-        </a>
-        <a href="https://drive.google.com/drive/u/0/">
-          <img src="./drive.png" alt="Google Drive" />
-        </a>
-        <a href="https://calendar.google.com/calendar/u/0/">
-          <img src="./calendar.png" alt="Google Calendar" />
-        </a>
-        <a href="https://www.google.fi/maps/">
-          <img src="./maps.svg" alt="Google Maps" />
-        </a>
+        <h1 style="align-self: flex-start">Bookmarks</h1>
+        <div id="favorites"></div>
       </div>
     </main>
     <script src="./secret.js"></script>
