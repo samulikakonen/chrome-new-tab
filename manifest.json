@@ -4,6 +4,7 @@
   "version": "1.0",
   "manifest_version": 3,
   "permissions": ["bookmarks"],
+  "host_permissions": ["https://www.is.fi/*", "https://is.mediadelivery.fi/*"],
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   }

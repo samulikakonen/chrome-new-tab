@@ -11,9 +11,7 @@ const updateTime = () => {
   const minutes = min < 10 ? '0' + min : min;
 
   timeBlock.innerHTML = `${hours}:${minutes}`;
-  dateBlock.innerHTML = `${date.getDate()}.${
-    date.getMonth() + 1
-  }.${date.getFullYear()}`;
+  dateBlock.innerHTML = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
 };
 
 const startInterval = () => {
@@ -30,23 +28,44 @@ document.addEventListener('visibilitychange', function (e) {
 chrome.bookmarks.getSubTree('1').then((bookmarks) => {
   const parent = document.getElementById('favorites');
   bookmarks[0].children.forEach((bookmark) => {
-    const linkElem = document.createElement('a');
-    linkElem.href = bookmark.url;
-    const newElem = document.createElement('div');
-    newElem.classList.add('favorite');
+    console.log(bookmark);
+    if ('children' in bookmark) {
+      bookmark.children.forEach((child) => {
+        const linkElem = document.createElement('a');
+        linkElem.href = child.url;
+        const newElem = document.createElement('div');
+        newElem.classList.add('favorite');
 
-    const favicon = document.createElement('img');
-    favicon.src =
-      'https://s2.googleusercontent.com/s2/favicons?domain=' + bookmark.url;
+        const favicon = document.createElement('img');
+        favicon.src = 'https://s2.googleusercontent.com/s2/favicons?domain=' + child.url;
 
-    const text = document.createElement('p');
-    text.appendChild(document.createTextNode(bookmark.title));
+        const text = document.createElement('p');
+        text.appendChild(document.createTextNode(child.title));
 
-    newElem.appendChild(favicon);
-    newElem.appendChild(text);
+        newElem.appendChild(favicon);
+        newElem.appendChild(text);
 
-    linkElem.appendChild(newElem);
-    parent.appendChild(linkElem);
+        linkElem.appendChild(newElem);
+        parent.appendChild(linkElem);
+      });
+    } else {
+      const linkElem = document.createElement('a');
+      linkElem.href = bookmark.url;
+      const newElem = document.createElement('div');
+      newElem.classList.add('favorite');
+
+      const favicon = document.createElement('img');
+      favicon.src = 'https://s2.googleusercontent.com/s2/favicons?domain=' + bookmark.url;
+
+      const text = document.createElement('p');
+      text.appendChild(document.createTextNode(bookmark.title));
+
+      newElem.appendChild(favicon);
+      newElem.appendChild(text);
+
+      linkElem.appendChild(newElem);
+      parent.appendChild(linkElem);
+    }
   });
 });
 
@@ -61,7 +80,6 @@ fetch('https://www.is.fi/rss/tuoreimmat.xml')
     const image = document.createElement('img');
     image.src = logoUrl;
     image.alt = '';
-    document.getElementById('news-outlet').appendChild(image);
 
     const items = data.querySelectorAll('item');
 
@@ -69,7 +87,7 @@ fetch('https://www.is.fi/rss/tuoreimmat.xml')
       const link = document.createElement('a');
 
       const newsImg = document.createElement('img');
-      newsImg.src = item.querySelector('content')?.getAttribute('url');
+      newsImg.src = item.querySelector('enclosure')?.getAttribute('url');
       newsImg.alt = '';
 
       link.appendChild(newsImg);
@@ -85,9 +103,7 @@ fetch('https://www.is.fi/rss/tuoreimmat.xml')
   });
 
 // Fetch weather for Helsinki
-fetch(
-  'https://api.openweathermap.org/data/2.5/weather?q=helsinki&appid=' + token
-)
+fetch('https://api.openweathermap.org/data/2.5/weather?q=helsinki&appid=' + token)
   .then((response) => response.json())
   .then((data) => {
     const temperature = document.getElementById('temperature');
