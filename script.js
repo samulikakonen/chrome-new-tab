@@ -28,7 +28,6 @@ document.addEventListener('visibilitychange', function (e) {
 chrome.bookmarks.getSubTree('1').then((bookmarks) => {
   const parent = document.getElementById('favorites');
   bookmarks[0].children.forEach((bookmark) => {
-    console.log(bookmark);
     if ('children' in bookmark) {
       bookmark.children.forEach((child) => {
         const linkElem = document.createElement('a');
